@@ -4,7 +4,9 @@
   #include <abstractions/base>
 
   # TODO 1: permitir que el binario se cargue y ejecute bajo este perfil.
+  /usr/local/bin/tp2-reader mr,
   # TODO 2: permitir la lectura de /srv/tp2/datos/publico.txt.
+  /srv/tp2/datos/publico.txt r,
   # TODO 3: no conceder acceso a confidencial.txt.
   # No use una regla "deny" explicita: el objetivo es observar la diferencia
   # entre complain y enforce ante un permiso ausente.
