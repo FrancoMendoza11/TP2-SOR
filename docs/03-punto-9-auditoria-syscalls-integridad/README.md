@@ -12,6 +12,37 @@ Estas herramientas no se reemplazan entre si. `strace` explica como interactua
 un proceso con el kernel, `auditd` deja evidencia persistente de operaciones
 seleccionadas y AIDE detecta diferencias en el estado de los archivos.
 
+## Como funciona `auditd`
+
+`auditd` es un *daemon*, es decir, un proceso que corre en segundo plano como
+un servicio del sistema. Igual que `sshd`, normalmente se inicia mediante
+`systemd` al arrancar la maquina virtual. La diferencia es que `sshd` espera
+conexiones de red, mientras que `auditd` recibe eventos del subsistema de
+auditoria del kernel y los conserva en `/var/log/audit/audit.log`.
+
+Que `auditd` este activo no significa que registre absolutamente todo. Las
+reglas cargadas en el kernel determinan que operaciones se auditan. En este TP
+se definieron dos reglas: una para modificaciones dentro de
+`/srv/tp2/datos` y otra para la ejecucion de `/usr/local/bin/tp2-event`.
+Las claves `tp2_datos` y `tp2_exec` son etiquetas que permiten buscar luego
+los eventos con `ausearch`.
+
+Las herramientas cumplen funciones diferentes:
+
+- `auditd`: daemon que conserva los eventos de auditoria.
+- `auditctl`: consulta o administra reglas; `auditctl -l` lista las reglas
+  activas. La opcion `-l` es una ele minuscula, no el numero `1`.
+- `augenrules`: reune las reglas de `/etc/audit/rules.d/` y las carga en el
+  subsistema de auditoria cuando se usa con `--load`.
+- `ausearch`: busca eventos que ya fueron registrados por `auditd`.
+
+Por ejemplo, si no existe una regla que coincida con `/usr/bin/batcat`, una
+ejecucion de `batcat` no aparece bajo la clave `tp2_exec`, porque esa clave
+solo corresponde exactamente a `/usr/local/bin/tp2-event`. Podria aparecer
+si existiera otra regla del sistema que la capturara. `strace`, en cambio,
+puede observar `batcat` aunque no exista una regla de `auditd`, porque trabaja
+de forma independiente durante esa ejecucion puntual.
+
 ## Que es `tp2-event`
 
 `tp2-event` es un programa pequeno en C provisto por la catedra. Su codigo esta
@@ -87,6 +118,13 @@ Las opciones cumplen estas funciones:
 - `-e trace=...`: limita la salida a las syscalls indicadas.
 - `-o`: guarda el resultado en un archivo de evidencia.
 
+La opcion `-e` necesita una expresion; `strace -f -e` por si solo esta
+incompleto. En este caso, `trace=execve,openat,write` solicita observar
+solamente esas tres syscalls. La opcion `-f` es importante cuando el programa
+crea procesos hijos. Tambien permite seguir los procesos que un script de
+shell lance, aunque `strace` muestra las syscalls del interprete y de esos
+programas, no la logica del script (variables, `if` o bucles) como texto.
+
 Una salida simplificada puede tener esta forma:
 
 ```text
@@ -137,17 +175,51 @@ la actividad relacionada con la modificacion de los datos.
 
 ### 1. Completar y cargar las reglas
 
-Primero se completa `audit/99-tp2.rules`, se instala en
-`/etc/audit/rules.d/99-tp2.rules` y se cargan las reglas:
+El archivo terminado que se entrega es `codigo_base/audit/99-tp2.rules`.
+La plantilla `audit/99-tp2.rules.base` se conserva sin modificar. El archivo
+terminado contiene exactamente estas dos reglas:
+
+```text
+-w /srv/tp2/datos -p wa -k tp2_datos
+-a always,exit -F arch=b64 -S execve -F path=/usr/local/bin/tp2-event -k tp2_exec
+```
+
+La primera observa escrituras y cambios de atributos (`-p wa`) dentro de
+`/srv/tp2/datos`. La segunda registra la syscall `execve` cuando se ejecuta el
+binario `tp2-event`, usando las claves solicitadas por la consigna.
+
+Desde `codigo_base/`, se instala el fragmento en el sistema operativo y se
+cargan las reglas:
 
 ```bash
+sudo install -m 0640 audit/99-tp2.rules /etc/audit/rules.d/99-tp2.rules
 sudo augenrules --load
 sudo auditctl -l | grep tp2_
 ```
 
-`auditctl -l` permite comprobar que las reglas estan activas antes de generar
-el evento. Si se ejecuta el programa antes de cargar las reglas, auditd no puede
-registrar retroactivamente esa actividad.
+#### Que hace cada comando
+
+- `sudo install -m 0640 ...`: copia el archivo terminado desde el repositorio
+  a `/etc/audit/rules.d/`, que es una ruta protegida del sistema. `sudo` otorga
+  temporalmente permisos administrativos para poder escribir allí; no instala
+  un paquete ni activa por sí solo las reglas. La opción `-m 0640` fija sus
+  permisos.
+- `sudo augenrules --load`: reúne los archivos `*.rules` de
+  `/etc/audit/rules.d/`, genera la configuración consolidada de auditd y carga
+  las reglas en el subsistema de auditoría del kernel. Sin `--load`, no se
+  solicita esa carga inmediata.
+- `sudo auditctl -l`: consulta y lista las reglas actualmente activas en el
+  kernel. La opción es `-l` (ele minúscula), no el número `1`.
+  `| grep tp2_` filtra la salida para mostrar solo las reglas que contienen las
+  claves `tp2_datos` o `tp2_exec`. Este último comando consulta; no modifica
+  ninguna regla.
+
+El archivo dentro de `/etc/audit/rules.d/` permite conservar la configuración
+para futuras cargas y reinicios, mientras que el archivo del repositorio es la
+versión reproducible y entregable. `auditctl -l` permite comprobar que las
+reglas están activas antes de generar el evento. Si se ejecuta el programa
+antes de cargar las reglas, auditd no puede registrar retroactivamente esa
+actividad.
 
 ### 2. Generar y observar el evento
 
