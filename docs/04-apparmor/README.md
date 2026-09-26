@@ -95,6 +95,19 @@ En modo `complain`, AppArmor registra las operaciones que el perfil no permite,
 pero no las bloquea. Esto permite comprobar el perfil antes de activar la
 restriccion.
 
+El modo no se asigna al usuario ni a la terminal. Se asigna al perfil de
+`/usr/local/bin/tp2-reader`. El usuario ejecuta el programa de la forma
+habitual y el kernel aplica el modo del perfil a cada operacion del proceso.
+
+| Modo | Operacion no permitida por el perfil |
+| --- | --- |
+| `complain` | Se permite, pero se registra como una violacion. |
+| `enforce` | Se bloquea y se registra como una denegacion. |
+
+En este TP, la regla de lectura de `publico.txt` permite el acceso en ambos
+modos. Como no existe una regla para `confidencial.txt`, la lectura puede
+completarse en `complain` y debe fallar con `Permission denied` en `enforce`.
+
 ```bash
 sudo aa-complain /etc/apparmor.d/usr.local.bin.tp2-reader
 sudo aa-status
@@ -157,6 +170,23 @@ puede aparecer alli:
 ```bash
 sudo dmesg | grep -i apparmor | tail -n 5
 ```
+
+## Como documentar la evidencia
+
+La evidencia debe indicar que se esperaba, que ocurrio y que demuestra cada
+prueba. Guarda, como minimo:
+
+- la salida de `aa-status` con el perfil cargado;
+- las pruebas de lectura en modo `complain`;
+- el evento `apparmor="ALLOWED"` o equivalente para el acceso no permitido;
+- las pruebas de lectura en modo `enforce`;
+- el error `Permission denied` para `confidencial.txt`;
+- el evento `apparmor="DENIED"` correspondiente.
+
+Estos resultados permiten demostrar que los permisos DAC no bastan para
+autorizar la lectura y que AppArmor agrega una restriccion basada en el
+ejecutable. Tambien permiten explicar la diferencia entre observar una
+violacion en `complain` y bloquearla en `enforce`.
 
 ## Ver los eventos con `auditd`
 
