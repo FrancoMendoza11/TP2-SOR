@@ -29,6 +29,11 @@ El script `tests/public_checks.sh` admite tres modos:
 - `--entorno`: agrega la verificacion de la VM preparada. Requiere `sudo`.
 - `--entrega`: agrega la verificacion de los cuatro entregables completos.
 
+## Documentacion complementaria
+
+- [Punto 8: AppArmor](04-apparmor/README.md)
+- [Punto 9: auditoria, syscalls e integridad](03-punto-9-auditoria-syscalls-integridad/README.md)
+
 Los archivos terminados en `.base` y `hardening_base.sh` son plantillas de la
 catedra: conservan sus bloques `TODO` de forma intencional y no deben
 modificarse ni eliminarse. Sus versiones completas se guardan con el nombre
