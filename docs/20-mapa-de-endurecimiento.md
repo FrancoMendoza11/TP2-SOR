@@ -1,6 +1,25 @@
-# Conocimiento de alto nivel — TP2
+# Endurecimiento: requisitos y alcance
 
-## Parte 1: script de hardening
+> **Alcance:** los controles de endurecimiento exigidos por el TP y cómo se verifican.
+>
+> **Cuándo leerlo:** para obtener el mapa de la parte 1 antes de abrir detalles de implementación.
+>
+> **Prerrequisitos:** el [resumen del proyecto](./10-resumen-del-proyecto.md) y el [flujo de trabajo](./11-entorno-y-flujo-de-trabajo.md).
+
+## Documentos relacionados
+
+- [SSH y bloqueo de root](./21-endurecimiento-ssh.md)
+- [Calidad de contraseñas y PAM](./22-calidad-de-contrasenas.md)
+- [Umask de sesión](./23-umask-de-sesion.md)
+- [Protecciones con sysctl](./24-protecciones-del-nucleo-con-sysctl.md)
+- [Arquitectura del script](./25-script-de-endurecimiento.md)
+
+## Leer a continuación
+
+- [Implementación del script](./25-script-de-endurecimiento.md)
+- [Entorno y flujo de trabajo](./11-entorno-y-flujo-de-trabajo.md)
+
+## Parte 1: script de endurecimiento
 
 ### Objetivo
 
@@ -36,7 +55,7 @@ del sistema y permitir aplicar o revertir los cambios de forma segura.
    - Persistir en `sysctl.d` los valores:
      - `fs.protected_hardlinks = 1`
      - `fs.protected_symlinks = 1`
-   - Comprobar tanto el archivo como los valores efectivos del kernel.
+   - Comprobar tanto el archivo como los valores efectivos del núcleo.
 
 ### Modos de ejecución
 
@@ -66,7 +85,7 @@ sudo ./hardening/hardening.sh --restore
 /var/log/tp2-hardening.log
 ```
 
-El log debe incluir fecha, control y estado (`APPLIED`, `SKIPPED`, `CHECK` o
+El registro debe incluir fecha, control y estado (`APPLIED`, `SKIPPED`, `CHECK` o
 `ERROR`).
 
 ### Evidencia que se debe conservar
@@ -75,7 +94,7 @@ El log debe incluir fecha, control y estado (`APPLIED`, `SKIPPED`, `CHECK` o
 - Primera ejecución de `--apply`.
 - Segunda ejecución de `--apply`, mostrando la idempotencia.
 - Fragmentos creados y comandos de validación.
-- Prueba de `--restore` o explicación del uso del snapshot para la restauración
+- Prueba de `--restore` o explicación del uso de la instantánea para la restauración
   final.
 - Análisis de un riesgo reducido por un control.
 - Explicación de por qué dos ejecuciones de `--apply` no producen cambios
@@ -84,6 +103,6 @@ El log debe incluir fecha, control y estado (`APPLIED`, `SKIPPED`, `CHECK` o
 ### Restricciones importantes
 
 - Trabajar únicamente en la VM Ubuntu Server 24.04 LTS del TP.
-- Crear el snapshot `TP2_BASE` antes de aplicar cambios.
+- Crear la instantánea `TP2_BASE` antes de aplicar cambios.
 - Mantener acceso por consola antes de modificar SSH.
 - No eliminar ni modificar `hardening_base.sh`.
