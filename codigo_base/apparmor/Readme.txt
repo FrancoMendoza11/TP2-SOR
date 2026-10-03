@@ -22,6 +22,12 @@ Verificar auditoria:
 
 udo dmesg | grep -i apparmor | tail -n 5. Debe mostrar una traza con apparmor="ALLOWED" para confidencial.txt, indicando que el acceso no autorizado fue detectado pero permitido por estar en modo complain.
 
+Si auditd está activo, el evento puede estar en /var/log/audit/audit.log y no aparecer en dmesg. Como alternativa, consultar:
+
+sudo grep -F 'name="/srv/tp2/datos/confidencial.txt"' /var/log/audit/audit.log | tail -n 10
+
+Verificar que el evento de esta prueba tenga apparmor="ALLOWED" y profile="/usr/local/bin/tp2-reader".
+
 
 3.Pasar a modo estricto (enforce) y validar el bloqueo
 Aplica el perfil en modo de bloqueo definitivo:
@@ -49,4 +55,9 @@ sudo dmesg | grep -i apparmor | tail -n 5
 
 Se deberia ver la línea con apparmor="DENIED", profile="/usr/local/bin/tp2-reader" y name="/srv/tp2/datos/confidencial.txt"
 
+Si el evento no aparece en dmesg y auditd está activo, consultar:
+
+sudo grep -F 'name="/srv/tp2/datos/confidencial.txt"' /var/log/audit/audit.log | tail -n 10
+
+Verificar que el nuevo evento tenga apparmor="DENIED". Revisar la hora del registro para no confundirlo con el evento "ALLOWED" de la prueba en modo complain.
 
