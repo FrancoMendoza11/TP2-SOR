@@ -1,0 +1,34 @@
+----
+type=PROCTITLE msg=audit(10/03/2026 22:56:03.514:671) : proctitle=python3 - 
+type=PATH msg=audit(10/03/2026 22:56:03.514:671) : item=1 name=/srv/tp2/datos/publico.txt inode=1310728 dev=fc:00 mode=file,640 ouid=root ogid=root rdev=00:00 nametype=NORMAL cap_fp=none cap_fi=none cap_fe=0 cap_fver=0 cap_frootid=0 
+type=PATH msg=audit(10/03/2026 22:56:03.514:671) : item=0 name=/srv/tp2/datos/ inode=1310724 dev=fc:00 mode=dir,755 ouid=root ogid=root rdev=00:00 nametype=PARENT cap_fp=none cap_fi=none cap_fe=0 cap_fver=0 cap_frootid=0 
+type=CWD msg=audit(10/03/2026 22:56:03.514:671) : cwd=/home/santiago/TP2-SOR/codigo_base 
+type=SYSCALL msg=audit(10/03/2026 22:56:03.514:671) : arch=x86_64 syscall=openat success=yes exit=3 a0=AT_FDCWD a1=0x7bb9c0df9890 a2=O_WRONLY|O_CREAT|O_TRUNC|O_CLOEXEC a3=0x1b6 items=2 ppid=6966 pid=6967 auid=santiago uid=root gid=root euid=root suid=root fsuid=root egid=root sgid=root fsgid=root tty=pts2 ses=11 comm=python3 exe=/usr/bin/python3.12 subj=unconfined key=tp2_datos 
+----
+type=PROCTITLE msg=audit(10/03/2026 22:56:11.100:678) : proctitle=rm -f -- /srv/tp2/datos/prueba_aide.txt 
+type=PATH msg=audit(10/03/2026 22:56:11.100:678) : item=1 name=/srv/tp2/datos/prueba_aide.txt inode=1310736 dev=fc:00 mode=file,644 ouid=root ogid=root rdev=00:00 nametype=DELETE cap_fp=none cap_fi=none cap_fe=0 cap_fver=0 cap_frootid=0 
+type=PATH msg=audit(10/03/2026 22:56:11.100:678) : item=0 name=/srv/tp2/datos/ inode=1310724 dev=fc:00 mode=dir,755 ouid=root ogid=root rdev=00:00 nametype=PARENT cap_fp=none cap_fi=none cap_fe=0 cap_fver=0 cap_frootid=0 
+type=CWD msg=audit(10/03/2026 22:56:11.100:678) : cwd=/home/santiago/TP2-SOR/codigo_base 
+type=SYSCALL msg=audit(10/03/2026 22:56:11.100:678) : arch=x86_64 syscall=unlinkat success=yes exit=0 a0=AT_FDCWD a1=0x654ad31114a0 a2=0x0 a3=0x654ad3112900 items=2 ppid=6989 pid=6990 auid=santiago uid=root gid=root euid=root suid=root fsuid=root egid=root sgid=root fsgid=root tty=pts2 ses=11 comm=rm exe=/usr/bin/rm subj=unconfined key=tp2_datos 
+----
+type=PROCTITLE msg=audit(10/03/2026 22:56:16.730:685) : proctitle=chmod 0644 /srv/tp2/datos/publico.txt 
+type=PATH msg=audit(10/03/2026 22:56:16.730:685) : item=0 name=/srv/tp2/datos/publico.txt inode=1310728 dev=fc:00 mode=file,640 ouid=root ogid=root rdev=00:00 nametype=NORMAL cap_fp=none cap_fi=none cap_fe=0 cap_fver=0 cap_frootid=0 
+type=CWD msg=audit(10/03/2026 22:56:16.730:685) : cwd=/home/santiago/TP2-SOR/codigo_base 
+type=SYSCALL msg=audit(10/03/2026 22:56:16.730:685) : arch=x86_64 syscall=fchmodat success=yes exit=0 a0=AT_FDCWD a1=0x58e3cfc664d0 a2=0644 a3=0x0 items=1 ppid=7011 pid=7012 auid=santiago uid=root gid=root euid=root suid=root fsuid=root egid=root sgid=root fsgid=root tty=pts2 ses=11 comm=chmod exe=/usr/bin/chmod subj=unconfined key=tp2_datos 
+----
+type=PROCTITLE msg=audit(10/03/2026 22:58:55.401:764) : proctitle=/usr/local/bin/tp2-event escenario_integrador_20261003_225855 
+type=PATH msg=audit(10/03/2026 22:58:55.401:764) : item=1 name=/srv/tp2/datos/eventos.log inode=1310730 dev=fc:00 mode=file,644 ouid=root ogid=root rdev=00:00 nametype=NORMAL cap_fp=none cap_fi=none cap_fe=0 cap_fver=0 cap_frootid=0 
+type=PATH msg=audit(10/03/2026 22:58:55.401:764) : item=0 name=/srv/tp2/datos/ inode=1310724 dev=fc:00 mode=dir,755 ouid=root ogid=root rdev=00:00 nametype=PARENT cap_fp=none cap_fi=none cap_fe=0 cap_fver=0 cap_frootid=0 
+type=CWD msg=audit(10/03/2026 22:58:55.401:764) : cwd=/home/santiago/TP2-SOR/codigo_base 
+type=SYSCALL msg=audit(10/03/2026 22:58:55.401:764) : arch=x86_64 syscall=openat success=yes exit=3 a0=AT_FDCWD a1=0x62490ddbe019 a2=O_WRONLY|O_CREAT|O_APPEND a3=0x1b6 items=2 ppid=7393 pid=7397 auid=santiago uid=root gid=root euid=root suid=root fsuid=root egid=root sgid=root fsgid=root tty=pts2 ses=11 comm=tp2-event exe=/usr/local/bin/tp2-event subj=unconfined key=tp2_datos 
+----
+type=PROCTITLE msg=audit(10/03/2026 22:58:55.405:765) : proctitle=bash ./scripts/escenario_final.sh 
+type=PATH msg=audit(10/03/2026 22:58:55.405:765) : item=1 name=/srv/tp2/datos/publico.txt inode=1310728 dev=fc:00 mode=file,644 ouid=root ogid=root rdev=00:00 nametype=NORMAL cap_fp=none cap_fi=none cap_fe=0 cap_fver=0 cap_frootid=0 
+type=PATH msg=audit(10/03/2026 22:58:55.405:765) : item=0 name=/srv/tp2/datos/ inode=1310724 dev=fc:00 mode=dir,755 ouid=root ogid=root rdev=00:00 nametype=PARENT cap_fp=none cap_fi=none cap_fe=0 cap_fver=0 cap_frootid=0 
+type=CWD msg=audit(10/03/2026 22:58:55.405:765) : cwd=/home/santiago/TP2-SOR/codigo_base 
+type=SYSCALL msg=audit(10/03/2026 22:58:55.405:765) : arch=x86_64 syscall=openat success=yes exit=3 a0=AT_FDCWD a1=0x64af850a2d70 a2=O_WRONLY|O_CREAT|O_APPEND a3=0x1b6 items=2 ppid=7390 pid=7393 auid=santiago uid=root gid=root euid=root suid=root fsuid=root egid=root sgid=root fsgid=root tty=pts2 ses=11 comm=bash exe=/usr/bin/bash subj=unconfined key=tp2_datos 
+----
+type=PROCTITLE msg=audit(10/03/2026 22:58:55.420:766) : proctitle=chmod 0640 /srv/tp2/datos/publico.txt 
+type=PATH msg=audit(10/03/2026 22:58:55.420:766) : item=0 name=/srv/tp2/datos/publico.txt inode=1310728 dev=fc:00 mode=file,644 ouid=root ogid=root rdev=00:00 nametype=NORMAL cap_fp=none cap_fi=none cap_fe=0 cap_fver=0 cap_frootid=0 
+type=CWD msg=audit(10/03/2026 22:58:55.420:766) : cwd=/home/santiago/TP2-SOR/codigo_base 
+type=SYSCALL msg=audit(10/03/2026 22:58:55.420:766) : arch=x86_64 syscall=fchmodat success=yes exit=0 a0=AT_FDCWD a1=0x5f7576c964d0 a2=0640 a3=0x0 items=1 ppid=7393 pid=7398 auid=santiago uid=root gid=root euid=root suid=root fsuid=root egid=root sgid=root fsgid=root tty=pts2 ses=11 comm=chmod exe=/usr/bin/chmod subj=unconfined key=tp2_datos 

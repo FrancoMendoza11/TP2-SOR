@@ -1,0 +1,7 @@
+----
+type=PROCTITLE msg=audit(10/03/2026 22:58:55.395:763) : proctitle=/usr/local/bin/tp2-event escenario_integrador_20261003_225855 
+type=PATH msg=audit(10/03/2026 22:58:55.395:763) : item=1 name=/lib64/ld-linux-x86-64.so.2 inode=558397 dev=fc:00 mode=file,755 ouid=root ogid=root rdev=00:00 nametype=NORMAL cap_fp=none cap_fi=none cap_fe=0 cap_fver=0 cap_frootid=0 
+type=PATH msg=audit(10/03/2026 22:58:55.395:763) : item=0 name=/usr/local/bin/tp2-event inode=572858 dev=fc:00 mode=file,755 ouid=root ogid=root rdev=00:00 nametype=NORMAL cap_fp=none cap_fi=none cap_fe=0 cap_fver=0 cap_frootid=0 
+type=CWD msg=audit(10/03/2026 22:58:55.395:763) : cwd=/home/santiago/TP2-SOR/codigo_base 
+type=EXECVE msg=audit(10/03/2026 22:58:55.395:763) : argc=2 a0=/usr/local/bin/tp2-event a1=escenario_integrador_20261003_225855 
+type=SYSCALL msg=audit(10/03/2026 22:58:55.395:763) : arch=x86_64 syscall=execve success=yes exit=0 a0=0x64af850a1710 a1=0x64af850a1790 a2=0x64af8509ba30 a3=0x64af850a2c30 items=2 ppid=7393 pid=7397 auid=santiago uid=root gid=root euid=root suid=root fsuid=root egid=root sgid=root fsgid=root tty=pts2 ses=11 comm=tp2-event exe=/usr/local/bin/tp2-event subj=unconfined key=tp2_exec 

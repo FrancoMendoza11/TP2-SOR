@@ -1,0 +1,32 @@
+WARNING: /srv/tp2/config/aide.conf:11: special characters in group names are DEPRECATED. Update your config and only use alphanumeric characters (A-Za-z0-9) (line: 'TP2_NORMAL = p+ftype+i+n+u+g+s+m+c+sha256')
+Start timestamp: 2026-10-03 22:58:39 +0000 (AIDE 0.18.6)
+AIDE found NO differences between database and filesystem. Looks okay!!
+
+Number of entries:	4
+
+---------------------------------------------------
+The attributes of the (uncompressed) database(s):
+---------------------------------------------------
+
+/srv/tp2/aide/aide.db
+ MD5       : +7eoJTzmUGC1db7GSI1Eww==
+ SHA1      : GjUoZP1XCGOKsPt3Rvm62NgzfkQ=
+ SHA256    : aWy5KcXK449A9fHQ7yy86ONeiDPSxobW
+             IdkWzS/LFOg=
+ SHA512    : h9RjjoHBDVTV8n+2yh7LcCHcHxqhDqjV
+             SfMxLg8hfrIk3smjYiJqjHDD+HHHot2o
+             7IrGtKNcQ63d6mtX+SygXg==
+ RMD160    : zQoAgno6nNIiXqG3dlx+E1tJGEo=
+ TIGER     : WAl3XkRZR8KxCkWC7M8LMJUcJCxM9Si8
+ CRC32     : 9afjiA==
+ CRC32B    : yxXM2Q==
+ HAVAL     : gjnIJk5wLY8IW+58Y3nzicPKGHJxzGyz
+             ukeE8NNI+eY=
+ WHIRLPOOL : Hr3HDQJyG1yDiL8iWGmzmDP381iHDp/u
+             ZgCmkLTUSgNcD1eu7v4Y1Okxyu6mLeR/
+             oFsvtBGLyg9cWKhWDEZL1A==
+ GOST      : cZ78Rk/E9aYFXoTi4afHThAPGmBUzi75
+             AauCmEWig/g=
+
+
+End timestamp: 2026-10-03 22:58:39 +0000 (run time: 0m 0s)
