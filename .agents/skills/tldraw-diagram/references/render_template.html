@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>tldraw render harness</title>
+    <link rel="stylesheet" href="https://esm.sh/tldraw@3.15.2/tldraw.css" />
+    <style>
+      html, body, #root { width: 100%; height: 100%; margin: 0; overflow: hidden; }
+      .tldraw__editor { width: 100%; height: 100%; }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module">
+      import React from 'https://esm.sh/react@18.3.1';
+      import { createRoot } from 'https://esm.sh/react-dom@18.3.1/client?external=react';
+      import { Tldraw } from 'https://esm.sh/tldraw@3.15.2?external=react,react-dom';
+
+      window.__editorReady = false;
+      window.__renderError = null;
+
+      function plainText(value) {
+        if (typeof value === 'string') return value;
+        if (!value || typeof value !== 'object') return '';
+        if (typeof value.text === 'string') return value.text;
+        if (Array.isArray(value.content)) return value.content.map(plainText).join('');
+        if (Array.isArray(value.children)) return value.children.map(plainText).join('');
+        return '';
+      }
+
+      function convertProps(shape) {
+        const props = { ...(shape.props || {}) };
+        if ((shape.type === 'arrow' || shape.type === 'text' || shape.type === 'note') && props.richText !== undefined) {
+          props.text = plainText(props.richText);
+          delete props.richText;
+        }
+        if (shape.type === 'note') delete props.textFirstEditedBy;
+        return props;
+      }
+
+      function parentFirst(shapes, pageId, activePageId) {
+        const remaining = shapes.map((shape) => ({ ...shape }));
+        const emitted = new Set([activePageId]);
+        const result = [];
+        for (const shape of remaining) {
+          if (shape.parentId === pageId) shape.parentId = activePageId;
+        }
+        while (remaining.length) {
+          const index = remaining.findIndex((shape) => emitted.has(shape.parentId));
+          if (index < 0) throw new Error('shape parents are missing or form a cycle');
+          const [shape] = remaining.splice(index, 1);
+          result.push(shape);
+          emitted.add(shape.id);
+        }
+        return result;
+      }
+
+      function onMount(editor) {
+        try {
+          const file = window.__TLDR_DATA__;
+          if (!file || !Array.isArray(file.records)) throw new Error('missing .tldr records');
+          const sourcePage = file.records.find((record) => record.typeName === 'page');
+          const activePage = editor.getCurrentPageId();
+          const allShapes = file.records
+            .filter((record) => record.typeName === 'shape')
+            .map((record) => {
+              const { typeName, ...shape } = record;
+              shape.props = convertProps(shape);
+              return shape;
+            });
+          const pageId = sourcePage?.id || activePage;
+          const visibleParentIds = new Set([pageId]);
+          const shapes = [];
+          let foundChild = true;
+          while (foundChild) {
+            foundChild = false;
+            for (let i = allShapes.length - 1; i >= 0; i--) {
+              const shape = allShapes[i];
+              if (visibleParentIds.has(shape.parentId)) {
+                shapes.push(shape);
+                visibleParentIds.add(shape.id);
+                allShapes.splice(i, 1);
+                foundChild = true;
+              }
+            }
+          }
+          const ordered = parentFirst(shapes, pageId, activePage);
+          for (const shape of ordered) editor.createShapes([shape]);
+
+          const bindings = file.records
+            .filter((record) => record.typeName === 'binding')
+            .filter((record) => visibleParentIds.has(record.fromId) && visibleParentIds.has(record.toId))
+            .map(({ id, typeName, ...binding }) => {
+              const props = { ...(binding.props || {}) };
+              delete props.snap;
+              return { ...binding, props };
+            });
+          if (bindings.length) editor.createBindings(bindings);
+
+          window.__editor = editor;
+          editor.zoomToFit();
+          window.__editorReady = true;
+        } catch (error) {
+          window.__renderError = String(error?.stack || error);
+        }
+      }
+
+      function App() {
+        return React.createElement(
+          'div',
+          { className: 'tldraw__editor' },
+          React.createElement(Tldraw, { onMount, hideUi: true })
+        );
+      }
+
+      createRoot(document.getElementById('root')).render(React.createElement(App));
+    </script>
+  </body>
+</html>

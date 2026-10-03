@@ -1,0 +1,6 @@
+[project]
+name = "tldraw-diagram-render-tools"
+version = "0.1.0"
+description = "Local validation and rendering helpers for tldraw diagram skills"
+requires-python = ">=3.10"
+dependencies = ["playwright>=1.50"]

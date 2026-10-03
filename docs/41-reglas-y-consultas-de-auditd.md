@@ -124,6 +124,34 @@ reglas están activas antes de generar el evento. Si se ejecuta el programa
 antes de cargar las reglas, auditd no puede registrar retroactivamente esa
 actividad.
 
+#### Cómo interpretar `-F` en las reglas activas
+
+La opción `-F` define un campo de la regla. La mayoría de esos campos agrega
+condiciones para seleccionar qué actividad se audita; el campo `key` asigna
+una etiqueta a los eventos seleccionados.
+
+En la regla de ejecución del TP:
+
+| Expresión | Significado |
+| --- | --- |
+| `-F arch=b64` | Selecciona llamadas al sistema de la arquitectura de 64 bits. |
+| `-F path=/usr/local/bin/tp2-event` | Selecciona la ruta del archivo que participa en la operación. Junto con `-S execve`, permite auditar la ejecución de ese binario. |
+| `-F key=tp2_exec` | Asigna la etiqueta `tp2_exec` para buscar los eventos después. No agrega un filtro sobre la actividad. |
+
+Al listar las reglas con `auditctl -l`, la regla puede aparecer así:
+
+```text
+-a always,exit -F arch=b64 -S execve -F path=/usr/local/bin/tp2-event -F key=tp2_exec
+```
+
+Aunque el archivo del repositorio usa `-k tp2_exec`, la salida puede mostrar
+`-F key=tp2_exec`. Son formas equivalentes de asignar la misma clave; esa
+diferencia de representación no indica que la regla haya cambiado.
+
+Luego, `ausearch -k tp2_exec` busca los eventos con esa etiqueta. En
+`auditctl`, `-k` asigna la clave a una regla; en `ausearch`, `-k` filtra la
+búsqueda por esa clave.
+
 ### 3. Consultar auditd
 
 Después de la ejecución se buscan los eventos por sus claves:
