@@ -56,6 +56,17 @@ sequenceDiagram
     Daemon-->>UI: stream result
 ```
 
+  Also render each Mermaid diagram to a PNG and open it so you can inspect the actual layout. Save the source and image under `/tmp/show-me/<topic>/`. With Google Chrome installed at the standard macOS location, use:
+
+  ```bash
+  mkdir -p /tmp/show-me/<topic>
+  cd /tmp/show-me/<topic>
+  printf '{"executablePath":"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"}' > puppeteer.json
+  pnpx @mermaid-js/mermaid-cli -p puppeteer.json -i <name>.mmd -o <name>.png -s 2 -b white && open <name>.png
+  ```
+
+  The Puppeteer config points Mermaid CLI at the installed Chrome because pnpm may block its Chromium download. Read the PNG to verify that it rendered cleanly, and tell the user the image's full path.
+
 - Use `diff` when the point is what changes and the surrounding shape already exists. Match the diff shape to the topic.
 
 For a component change:
