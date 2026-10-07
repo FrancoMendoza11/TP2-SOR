@@ -4,13 +4,13 @@
 
 Acá adentro vas a encontrar todo lo que armamos para la parte de Hardening, perfiles de AppArmor, reglas de auditoría con `auditd`, la base de integridad con `AIDE` y las pruebas de traza con `strace`.
 
-## 👥 Integrantes
+##  Integrantes
 
 * **[Nombre y Apellido]**
 * **[Nombre y Apellido]**
 * **[Nombre y Apellido]**
 
-## 💻 Entorno utilizado
+## Entorno utilizado
 
 Para probar y validar que todo funcionara como pide la cátedra, usamos:
 
@@ -19,7 +19,7 @@ Para probar y validar que todo funcionara como pide la cátedra, usamos:
 * **Snapshot de seguridad:** `TP2_BASE` (creado justo después de preparar el entorno inicial).
 * **Herramientas:** `gcc`, `make`, `AppArmor`, `auditd`, `AIDE`, `strace`, `OpenSSH Server`.
 
-## 🚀 Orden de ejecución (Paso a paso)
+## Orden de ejecución (Paso a paso)
 
 Para levantar la solución desde cero sin que falle nada, se corre en este orden:
 
@@ -109,7 +109,7 @@ Y para comprobar que todo esté listo para la entrega final del grupo:
 ./tests/public_checks.sh --entrega
 ```
 
-## ⚠️ Problemas relevantes y resoluciones
+## Problemas relevantes y resoluciones
 
 A lo largo del desarrollo nos topamos con un par de detalles a tener en cuenta:
 
