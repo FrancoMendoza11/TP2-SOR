@@ -31,8 +31,6 @@ Primero hay que instalar los paquetes necesarios, compilar los binarios (`tp2-re
 sudo ./scripts/preparar_entorno.sh --install-packages
 ```
 
-> **Importante:** Una vez ejecutado este paso, sacá el **Snapshot `TP2_BASE`** en tu máquina virtual.
-
 ### 2. Verificar que el entorno esté listo
 
 Corremos la verificación pública de la cátedra para estar seguros de que no falta nada:
