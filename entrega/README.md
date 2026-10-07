@@ -50,7 +50,6 @@ sudo ./hardening/hardening.sh --check
 # Para aplicar las configuraciones:
 sudo ./hardening/hardening.sh --apply
 
-# (Si volvés a correr --apply vas a ver que no duplica cambios y marca SKIPPED, demostrando idempotencia).
 ```
 
 ### 4. Cargar y probar AppArmor
