@@ -1,0 +1,9 @@
+#include <tunables/global>
+
+/usr/local/bin/tp2-reader flags=(attach_disconnected) {
+  #include <abstractions/base>
+
+  /usr/local/bin/tp2-reader mr,
+  /srv/tp2/datos/publico.txt r,
+
+}

@@ -1,0 +1,34 @@
+Start timestamp: 2026-10-03 22:33:54 +0000 (AIDE 0.18.6) AIDE found differences 
+between database and filesystem!! Summary:
+  Total number of entries: 5 Added entries:  1 Removed entries:  0 Changed entries:  
+  2
+--------------------------------------------------- Added entries: 
+--------------------------------------------------- f+++++++++++++++++: 
+/srv/tp2/datos/prueba_aide.txt --------------------------------------------------- 
+Changed entries: --------------------------------------------------- d = ... mc..  : 
+/srv/tp2/datos f > p.. mc..H : /srv/tp2/datos/publico.txt 
+--------------------------------------------------- Detailed information about 
+changes: --------------------------------------------------- Directory: 
+/srv/tp2/datos
+ Mtime : 2026-09-20 22:43:51 +0000 | 2026-10-03 22:31:56 +0000 Ctime : 2026-09-20 
+ 22:43:51 +0000 | 2026-10-03 22:31:56 +0000
+File: /srv/tp2/datos/publico.txt
+ Size : 58 | 100 Perm : -rw-r--r-- | -rw-r----- Mtime : 2026-09-20 22:43:51 +0000 | 
+ 2026-10-03 22:32:11 +0000 Ctime : 2026-09-20 22:43:51 +0000 | 2026-10-03 22:32:54 
+ +0000 SHA256 : E2KNvjylpgtXS1KwjRl05dCyF6E8jzHH | uid0cbolV4DR7nqQbkzN75x85eD889aI
+             t7vekpZGjsg= | 81BedcAPiqA= 
+--------------------------------------------------- The attributes of the 
+(uncompressed) database(s): --------------------------------------------------- 
+/srv/tp2/aide/aide.db
+ MD5 : YQyn84b+Oo7jk6Mcf0aMLQ== SHA1 : MvooQRqF3tDXScuMlEDwZS9A0Vs= SHA256 : 
+ XqFK/rWhDi432+1d8O075R2wdH5XY+3V
+             UfATyaUIZjA=
+ SHA512 : wp1CQlgNjvJ78o+tAz/4PVDetWShbplL
+             RDyeAGn2RfFWOYKggn95q/vVzuSKG1vw D2gF6hGyjwmEQc0rVtX0eQ==
+ RMD160 : R0kAUdTzOiPlEJIG8r/qmWJBeLI= TIGER : 8RTUXHvb2lTiLGLyEc7SkCAy+fVJBleV CRC32 
+ : wAcYVQ== CRC32B : 6htaqg== HAVAL : LRatknPxN/AH9iiPiT4hOOZTFnhRaI07
+             HZFMWedTxqg=
+ WHIRLPOOL : iBZHb3cvFTRe8AJs/v6w9xXpylkmm+se
+             JdGne2uOhN0p1rzoTbUmY07D556yt3dW ZQGM1eHoahXt1yMz7Rof5g==
+ GOST : fUaNbGmoo1G5D/qLrkY53zrnb4Ww104j
+             ajtKvv+Na1Q= End timestamp: 2026-10-03 22:33:55 +0000 (run time: 0m 1s)

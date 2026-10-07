@@ -1,0 +1,16 @@
+---- type=BPF msg=audit(09/20/2026 22:43:25.637:316) : prog-id=85 op=LOAD ---- 
+type=CRED_DISP msg=audit(09/21/2026 22:46:07.238:316) : pid=3821 uid=root 
+auid=santiago ses=12 subj=unconfined msg='op=PAM:setcred grantors=pam_permit 
+acct=santiago exe=/usr/sbin/sshd hostname=192.168.64.1 addr=192.168.64.1 terminal=ssh 
+res=success' ---- type=USER_CMD msg=audit(09/26/2026 15:25:35.147:316) : pid=8541 
+uid=santiago auid=santiago ses=7 subj=unconfined msg='cwd=/home/santiago/TP2-SOR 
+cmd=apt remove npm exe=/usr/bin/sudo terminal=pts/2 res=success' ---- type=PROCTITLE 
+msg=audit(10/03/2026 21:54:59.155:316) : proctitle=/usr/local/bin/tp2-event 1000 
+type=PATH msg=audit(10/03/2026 21:54:59.155:316) : item=1 
+name=/srv/tp2/datos/eventos.log inode=1310730 dev=fc:00 mode=file,644 ouid=root 
+ogid=root rdev=00:00 nametype=NORMAL cap_fp=none cap_fi=none cap_fe=0 cap_fver=0 
+cap_frootid=0 type=PATH msg=audit(10/03/2026 21:54:59.155:316) : item=0 
+name=/srv/tp2/datos/ inode=1310724 dev=fc:00 mode=dir,755 ouid=root ogid=root 
+rdev=00:00 nametype=PARENT cap_fp=none cap_fi=none cap_fe=0 cap_fver=0 cap_frootid=0 
+type=CWD msg=audit(10/03/2026 21:54:59.155:316) : cwd=/home/santiago/TP2-SOR
+type=SYSCALL msg=audit(10/03/2026 21:54:59.155:316) : arch=x86_64 syscall=openat success=yes exit=3 a0=AT_FDCWD a1=0x581c071d6019 a2=O_WRONLY|O_CREAT|O_APPEND a3=0x1b6 items=2 ppid=3177 pid=3180 auid=santiago uid=root gid=root euid=root suid=root fsuid=root egid=root sgid=root fsgid=root tty=pts1 ses=6 comm=tp2-event exe=/usr/local/bin/tp2-event subj=unconfined key=tp2_datos
